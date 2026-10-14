@@ -81,9 +81,7 @@ const audioFiles = [
         };
 
         const routePages = new Map([
-            ['profileContent', profileContent],
-            ['download', document.getElementById('download')],
-            ['faq', document.getElementById('faq')]
+            ['profileContent', profileContent]
         ]);
         const animatePageEntry = (page) => {
             page.classList.remove('page-animate-in');
@@ -114,41 +112,6 @@ const audioFiles = [
             });
         });
 
-        const faqTabs = Array.from(document.querySelectorAll('[data-faq-tab]'));
-        const activateFaqTab = (activeTab, moveFocus = false) => {
-            faqTabs.forEach((tab) => {
-                const isActive = tab === activeTab;
-                const panel = document.getElementById(tab.dataset.faqTab);
-
-                tab.classList.toggle('is-active', isActive);
-                tab.setAttribute('aria-selected', String(isActive));
-                tab.tabIndex = isActive ? 0 : -1;
-                panel.hidden = !isActive;
-            });
-
-            if (moveFocus) activeTab.focus();
-        };
-
-        faqTabs.forEach((tab, index) => {
-            tab.addEventListener('click', () => activateFaqTab(tab));
-            tab.addEventListener('keydown', (event) => {
-                let nextIndex;
-                if (event.key === 'ArrowDown' || event.key === 'ArrowRight') {
-                    nextIndex = (index + 1) % faqTabs.length;
-                } else if (event.key === 'ArrowUp' || event.key === 'ArrowLeft') {
-                    nextIndex = (index - 1 + faqTabs.length) % faqTabs.length;
-                } else if (event.key === 'Home') {
-                    nextIndex = 0;
-                } else if (event.key === 'End') {
-                    nextIndex = faqTabs.length - 1;
-                } else {
-                    return;
-                }
-
-                event.preventDefault();
-                activateFaqTab(faqTabs[nextIndex], true);
-            });
-        });
 
         const getRandomVideoIndex = () => {
             if (videoQueue.length === 0) {
